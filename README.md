@@ -23,4 +23,25 @@ One of the most common detection techniques is the CA-CFAR (Cell Averaging). Now
 
 **Guard Cells**: The cells which are next to the cell under test are called the guard cells. The purpose of these cells is to avoid the signal leaking into the training cells which would adversely affect the noise estimates by the training cells.
 
-Below is an illustration of the idea
+Below is an illustration of the idea and the algorithm to follow while implementing the same
+
+<img src="CFAR.png" width="620" height="350" />
+
+1.	Determine number of training cells for each dimension Tr and Td. Similarly pickup the number of guard cells Gr and Gd.
+2.	Slide the Cell Under Test (CUT) across the complete cell matrix.
+3.	Select the grid that includes the training, guard and test cells. Grid Size = (2Tr + 2Gr + 1)(2Td + 2Gd + 1)
+4.	The total number of cells in the guard region and cell under test. (2Gr+1)(2Gd+1).
+5.	This gives the Training Cells : (2Tr+2Gr+1)(2Td+2Gd+1) - (2Gr+1)(2Gd+1)
+6.	Measure and average the noise across all the training cells. This gives the threshold
+7.	Add the offset (if in signal strength in dB) to the threshold to keep the false alarm to the minimum.
+8.	Determine the signal level at the Cell Under Test.
+9.	If the CUT signal level is greater than the Threshold, assign a value of 1, else equate it to zero.
+10.	Since the cell under test are not located at the edges, due to the training cells occupying the edges, we suppress the edges to zero. Any cell value that is neither 1 nor a 0, assign it a zero.
+
+The parameters I used were 
+Training cells In range dimension(Tr) = 12 
+Training cells In doppler dimension(Td) = 6 
+Guard Cells in Range dimensions(Gr) = 4
+Guard Cells in Doppler dimensions(Gd) = 3
+offset = 1.2
+
