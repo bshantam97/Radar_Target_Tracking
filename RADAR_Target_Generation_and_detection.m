@@ -219,14 +219,9 @@ for i = Tr + Gr + 1 : Nr/2 - (Gr + Tr)
 % The process above will generate a thresholded block, which is smaller 
 %than the Range Doppler Map as the CUT cannot be located at the edges of
 %matrix. Hence,few cells will not be thresholded. To keep the map size same
-% set those values to 0. 
+% set those values to 0.
+% REFERENCE: https://knowledge.udacity.com/questions/588592
 RDM(RDM ~= 0 & RDM ~= 1) = 0;
-
-
-
-
-
-
 
 % *%TODO* :
 %display the CFAR output using the Surf function like we did for Range
